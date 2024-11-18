@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function Main({ siteContent }) {
   const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
-  const {title, subtitle, statistics, socials, contactNumber} = siteContent;
-  console.log(socials)
+  const { title, subtitle, statistics, socials, contactNumber } = siteContent;
+  console.log(socials);
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
@@ -33,25 +33,29 @@ export default function Main({ siteContent }) {
         <div className="flex justify-center mb-5 sm:mb-10 lg:justify-start lg:mb-0">
           <h1 className="text-2xl">
             {socials.map((social, index) => (
-              <a href={social.link} key={index} className="text-black hover:text-main">
+              <a
+                href={social.link}
+                key={index}
+                className="text-black hover:text-main"
+              >
                 {social.icon.asset.ref}
               </a>
             ))}
           </h1>
         </div>
-        <div className="lg:text-4xl text-3xl">
-          {title}
-        </div>
-        <p className="text-black text-xl">
-          {subtitle}
-        </p>
+        <div className="lg:text-4xl text-3xl">{title}</div>
+        <p className="text-black text-xl">{subtitle}</p>
         <div className="flex gap-4 text-bold text-lg">
-          <button className="bg-white text-black border-2 border-secondary h-14 w-36 rounded-2xl hidden lg:block">
-            More Details
-          </button>
-          <button className="bg-secondary text-white h-14 w-52 rounded-full lg:rounded-2xl">
-            Book An Appointment
-          </button>
+          <a href="/career">
+            <button className="bg-white text-black border-2 border-secondary h-14 w-36 rounded-2xl hidden lg:block">
+              More Details
+            </button>
+          </a>
+          <a href="/about">
+            <button className="bg-secondary text-white h-14 w-52 rounded-full lg:rounded-2xl">
+              Book An Appointment
+            </button>
+          </a>
         </div>
         <p>
           <span className="text-lg text-gray-500">Let&apos;s Talk </span>
@@ -96,12 +100,14 @@ export default function Main({ siteContent }) {
       </div>
 
       <section className="flex justify-center gap-8 sm:gap-12 xl:gap-20 2xl:gap-28 px-6 py-6 text-center lg:absolute left-0 bottom-0 w-full z-[-1] order-3">
-          {statistics.map((statistic, index) => (
-            <div className="w-20" key={index}>
-              <h3 className="text-main text-3xl lg:text-4xl font-bold">{statistic.metric}</h3>
-              <p className="text-lg">{statistic.label}</p>
-            </div>
-          ))}
+        {statistics.map((statistic, index) => (
+          <div className="w-20" key={index}>
+            <h3 className="text-main text-3xl lg:text-4xl font-bold">
+              {statistic.metric}
+            </h3>
+            <p className="text-lg">{statistic.label}</p>
+          </div>
+        ))}
       </section>
     </section>
   );

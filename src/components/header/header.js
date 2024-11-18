@@ -27,7 +27,7 @@ export default function Header() {
         setServicesOpen(false);
       }
 
-      if(
+      if (
         mobileDropdownServiseRef.current &&
         !mobileDropdownServiseRef.current.contains(event.target) &&
         !mobileButtonRef.current.contains(event.target)
@@ -65,10 +65,13 @@ export default function Header() {
         </svg>
       </button>
 
-      <div className="flex flex-col items-center lg:items-start absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none">
+      <a
+        href="/"
+        className="flex flex-col items-center lg:items-start absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none"
+      >
         <h1 className="text-5xl font-bold text-main">DIGITAL</h1>
         <span className="text-black text-xl">Construction</span>
-      </div>
+      </a>
 
       {/* Mobile Menu */}
       {menuOpen && (
@@ -208,10 +211,11 @@ export default function Header() {
           />
         </Link>
       </nav>
-
-      <button className="lg:block hidden text-lg bg-secondary text-white h-14 w-36 rounded-2xl font-bold">
-        Contact Us
-      </button>
+      <a href="/blog">
+        <button className="lg:block hidden text-lg bg-secondary text-white h-14 w-36 rounded-2xl font-bold">
+          Contact Us
+        </button>
+      </a>
     </header>
   );
 }
