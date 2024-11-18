@@ -169,7 +169,7 @@ export default function Header() {
           </div>
           {servicesOpen && (
             <div
-              className="absolute mt-9 w-48 bg-white border border-gray-200 shadow-md"
+              className="absolute mt-9 w-48 bg-white border border-gray-200 shadow-md z-30"
               ref={dropdownServiseRef}
             >
               <a
