@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Main() {
-    const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
 
+export default function Main({ siteContent }) {
+    const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
+    console.log(siteContent);
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
