@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col flex-grow w-full px-8 lg:px-14">
-      <Main siteContent={siteContent} />
+      <Main siteContent={siteContent}  />
     </div>
   );
 }

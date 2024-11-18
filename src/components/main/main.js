@@ -2,11 +2,17 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { urlFor } from "../../../public/lib/imageBuilder";
 
 export default function Main({ siteContent }) {
   const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
   const { title, subtitle, statistics, socials, contactNumber } = siteContent;
-  console.log(socials);
+  const finalSocials = siteContent.socials.map((social) => ({
+    name: social.name,
+    link: social.link,
+    iconUrl: urlFor(social.icon.asset._ref).url(),
+  }));
+
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
@@ -31,17 +37,21 @@ export default function Main({ siteContent }) {
     <section className="flex-grow flex-col lg:flex-row flex lg:justify-between relative">
       <div className="relative flex flex-col gap-4 justify-between h-2/3 mt-8 lg:mt-16 lg:order-1 order-2">
         <div className="flex justify-center mb-5 sm:mb-10 lg:justify-start lg:mb-0">
-          <h1 className="text-2xl">
-            {socials.map((social, index) => (
+          <div className="flex gap-2">
+            {finalSocials.map((social, index) => (
               <a
                 href={social.link}
                 key={index}
                 className="text-black hover:text-main"
               >
-                {social.icon.asset.ref}
+                <img
+                  src={social.iconUrl}
+                  alt={social.name}
+                  className="w-7 h-7"
+                />
               </a>
             ))}
-          </h1>
+          </div>
         </div>
         <div className="lg:text-4xl text-3xl">{title}</div>
         <p className="text-black text-xl">{subtitle}</p>
