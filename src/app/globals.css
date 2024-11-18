@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 :root {
-    --main-color: #B90000; /* Визначення змінної */
+    --main-color: #B90000;
     --secondary-color: #3B35F3;
   }

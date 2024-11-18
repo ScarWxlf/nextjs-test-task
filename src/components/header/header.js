@@ -31,7 +31,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="flex justify-between items-center px-16 py-4 bg-white border border-b-2 border-b-gray-300 ">
+    <header className="flex justify-between items-center px-14 py-4 bg-white border-b-2 border-gray-300 ">
       <div className="flex flex-col items-start">
         <h1 className="text-5xl font-bold text-main">DIGITAL</h1>
         <span className="text-black text-xl">Construction</span>
