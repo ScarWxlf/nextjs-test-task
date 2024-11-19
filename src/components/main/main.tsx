@@ -3,21 +3,32 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { urlFor } from "../../../public/lib/imageBuilder";
+import {
+  SiteContent,
+  Social,
+  finalSocials,
+} from "../../../public/lib/types/types";
 
-export default function Main({ siteContent }) {
+export default function Main({ siteContent }: { siteContent: SiteContent }) {
+  const [defaultPosition, setDefaultPosition] = useState("center");
   const [dimensions, setDimensions] = useState({ width: 500, height: 500 });
-  const { title, subtitle, statistics, socials, contactNumber } = siteContent;
-  const finalSocials = siteContent.socials.map((social) => ({
-    name: social.name,
-    link: social.link,
-    iconUrl: urlFor(social.icon.asset._ref).url(),
-  }));
+  const { title, subtitle, statistics, contactNumber } = siteContent;
+  let finalSocials = [] as finalSocials[];
+  if (siteContent.socials) {
+    finalSocials = siteContent.socials.map((social: Social) => ({
+      name: social.name,
+      link: social.link,
+      iconUrl: urlFor(social.icon.asset._ref).url(),
+    }));
+  }
 
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
 
-      if (screenWidth < 1024) {
+      if (screenWidth < 450) {
+        setDimensions({ width: 200, height: 200 });
+      } else if (screenWidth < 1024) {
         setDimensions({ width: 300, height: 300 });
       } else {
         setDimensions({ width: 500, height: 500 });
@@ -30,6 +41,26 @@ export default function Main({ siteContent }) {
 
     return () => {
       window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateDefaultPosition = () => {
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth < 1024) {
+        setDefaultPosition("-10px");
+      } else {
+        setDefaultPosition("center");
+      }
+    };
+
+    updateDefaultPosition();
+
+    window.addEventListener("resize", updateDefaultPosition);
+
+    return () => {
+      window.removeEventListener("resize", updateDefaultPosition);
     };
   }, []);
 
@@ -74,7 +105,7 @@ export default function Main({ siteContent }) {
         </p>
       </div>
 
-      <div className="mt-10 relative flex items-center h-full justify-center md:mt-0 font-bold lg:order-2 order-1">
+      <div className="mt-10 relative flex lg:flex-none items-center h-full justify-center md:mt-0 font-bold lg:order-2 order-1">
         <div className="hidden flex-col absolute text-xl xl:text-3xl z-[-1] select-none lg:flex">
           <div className="tracking-[7px]">* * * * * * * * * * * * * *</div>
           <div className="tracking-[7px]">* * * * * * * * * * * * * *</div>
@@ -88,14 +119,9 @@ export default function Main({ siteContent }) {
         <Image
           src="/images/image.png"
           alt="Worker"
-          className="bg-white lg:bg-current rounded-full lg:rounded-none mx-auto md:mx-0 lg:h-full z-10"
+          className="bg-white lg:bg-current rounded-full lg:rounded-none mx-auto md:mx-0 self-end z-10"
           style={{
-            objectPosition:
-              typeof window !== "undefined" && window.innerWidth < 1024
-                ? window.innerWidth < 640
-                  ? "-10px"
-                  : "-20px"
-                : "center",
+            objectPosition: defaultPosition,
           }}
           width={dimensions.width}
           height={dimensions.height}
@@ -109,7 +135,7 @@ export default function Main({ siteContent }) {
         />
       </div>
 
-      <section className="flex justify-center gap-8 sm:gap-12 xl:gap-20 2xl:gap-28 px-6 py-6 text-center lg:absolute left-0 bottom-0 w-full z-[-1] order-3">
+      <section className="flex justify-center gap-8 sm:gap-12 xl:gap-14 2xl:gap-28 px-6 py-6 text-center lg:absolute left-0 bottom-0 w-full z-30 order-3">
         {statistics.map((statistic, index) => (
           <div className="w-20" key={index}>
             <h3 className="text-main text-3xl lg:text-4xl font-bold">

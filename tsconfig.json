@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
+    "sourceMap": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -22,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/main/main.js", "src/components/header/header.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/main/main.tsx", "src/components/header/header.tsx"],
   "exclude": ["node_modules"]
 }

@@ -9,28 +9,30 @@ import Link from "next/link";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const dropdownServiseRef = useRef(null);
-  const buttonRef = useRef(null);
+  const dropdownServiseRef = useRef<HTMLDivElement >(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const mobileDropdownServiseRef = useRef(null);
-  const mobileButtonRef = useRef(null);
+  const mobileDropdownServiseRef = useRef<HTMLDivElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         dropdownServiseRef.current &&
-        !dropdownServiseRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
+        !dropdownServiseRef.current?.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
       ) {
         setServicesOpen(false);
       }
 
       if (
         mobileDropdownServiseRef.current &&
-        !mobileDropdownServiseRef.current.contains(event.target) &&
-        !mobileButtonRef.current.contains(event.target)
+        !mobileDropdownServiseRef.current.contains(event.target as Node) &&
+        mobileButtonRef.current &&
+        !mobileButtonRef.current.contains(event.target as Node)
       ) {
         setMobileServicesOpen(false);
       }
@@ -65,20 +67,20 @@ export default function Header() {
         </svg>
       </button>
 
-      <a
+      <Link
         href="/"
         className="flex flex-col items-center lg:items-start absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none"
       >
         <h1 className="text-5xl font-bold text-main">DIGITAL</h1>
         <span className="text-black text-xl">Construction</span>
-      </a>
+      </Link>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <nav className="absolute top-24 left-0 w-full bg-white z-20 shadow-md flex flex-col items-center space-y-4 py-4 lg:hidden">
-          <a href="/" className="hover:text-red-600">
+          <Link href="/" className="hover:text-red-600">
             Home
-          </a>
+          </Link>
           <div className="relative flex">
             <div>
               <button
